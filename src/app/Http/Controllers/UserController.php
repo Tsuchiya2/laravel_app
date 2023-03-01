@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 
 class UserController extends Controller
@@ -35,10 +34,10 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreUserRequest  $request
+     * @param  \App\Http\Requests\UserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserRequest $request)
+    public function store(UserRequest $request)
     {
         $data = $request->all();
         $user = new User();
@@ -68,19 +67,25 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+
+        return view('users.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateUserRequest  $request
+     * @param  \App\Http\Requests\UserRequest  $request
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, $id)
+    public function update(UserRequest $request, $id)
     {
-        //
+        $data = $request->all();
+        $user = User::find($id);
+        $user->fill($data)->save();
+
+        return redirect(route('users.show', $user))->with('success', 'ユーザー情報を更新しました');
     }
 
     /**

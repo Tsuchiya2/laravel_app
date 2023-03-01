@@ -12,6 +12,7 @@
                     <div class="card-header">
                         <div class="card-tools">
                             <a class="btn btn-default" href="{{route('users.index')}}">戻る</a>
+                            <a class="btn btn-warning" href="{{route('users.edit', $user)}}">編集</a>
                         </div>
                     </div>
                     <div class="card-body">
