@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('users.index');
     }
 
     /**
@@ -25,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -36,7 +36,13 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        $data = $request->all();
+
+        $user = new User();
+        $user->fill($data);
+        $user->save();
+
+        return redirect(route('users.index'))->with('success', 'ユーザーを新規登録しました');
     }
 
     /**
