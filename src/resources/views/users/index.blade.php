@@ -33,6 +33,11 @@
                                         <td>
                                             <a href="{{route('users.show', $user)}}" class="btn btn-info">詳細</a>
                                             <a href="{{route('users.edit', $user)}}" class="btn btn-warning">編集</a>
+                                            <form action="{{ route('users.destroy', $user) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input class="btn btn-danger" type="submit" value="削除" />
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

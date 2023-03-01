@@ -13,6 +13,11 @@
                         <div class="card-tools">
                             <a class="btn btn-default" href="{{route('users.index')}}">戻る</a>
                             <a class="btn btn-warning" href="{{route('users.edit', $user)}}">編集</a>
+                            <form action="{{ route('users.destroy', $user) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <input class="btn btn-danger" type="submit" value="削除" />
+                            </form>
                         </div>
                     </div>
                     <div class="card-body">
