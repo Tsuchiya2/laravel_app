@@ -42,9 +42,9 @@ class UserController extends Controller
     {
         $data = $request->all();
         $user = new User();
-        $user->fill($data);
+        $user->fill($data)->save();
 
-        return redirect(route('users.index'))->with('success', 'ユーザーを新規登録しました');
+        return redirect(route('users.show', $user))->with('success', 'ユーザーを新規登録しました');
     }
 
     /**
