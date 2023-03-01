@@ -15,7 +15,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.index');
+        $users = User::all();
+        return view(
+            'users.index',
+            compact('users')
+        );
     }
 
     /**
@@ -37,10 +41,8 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $data = $request->all();
-
         $user = new User();
         $user->fill($data);
-        $user->save();
 
         return redirect(route('users.index'))->with('success', 'ユーザーを新規登録しました');
     }
@@ -51,9 +53,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        //
+        $user = User::find($id);
+
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -62,7 +66,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
         //
     }
@@ -74,7 +78,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, $id)
     {
         //
     }
@@ -85,7 +89,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
         //
     }

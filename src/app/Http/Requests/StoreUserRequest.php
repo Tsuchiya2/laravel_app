@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreUserRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +26,17 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'age' => 'required|integer',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => '名前を入力してください',
+            'age.required' => '年齢を入力してください',
+            'age.integer' => '年齢は数字で入力してください',
         ];
     }
 }

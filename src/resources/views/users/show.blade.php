@@ -1,0 +1,39 @@
+@extends('layouts.app')
+
+@section('content_header')
+    <h1>ユーザー詳細</h1>
+@stop
+
+@section('content')
+    <div class="container=fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <div class="card-tools">
+                            <a class="btn btn-default" href="{{route('users.index')}}">戻る</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th>ユーザーID</th>
+                                    <td>{{$user->id}}</td>
+                                </tr>
+                                <tr>
+                                    <th>ユーザー名</th>
+                                    <td>{{$user->name}} さん</td>
+                                </tr>
+                                <tr>
+                                    <th>年齢</th>
+                                    <td>{{$user->age}} 才</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@stop
