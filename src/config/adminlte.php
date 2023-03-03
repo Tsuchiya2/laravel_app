@@ -291,6 +291,11 @@ return [
 
     'menu' => [
         [
+            'text'  => 'トップ',
+            'route' => 'top.index',
+            'icon'  => 'fas fa-fw fa-user',
+        ],
+        [
             'text'  => 'ユーザー',
             'route' => 'users.index',
             'icon'  => 'fas fa-fw fa-user',
