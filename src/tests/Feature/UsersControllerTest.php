@@ -15,9 +15,26 @@ class UsersControllerTest extends TestCase
      */
     public function index()
     {
+        $this->createUser();
+
         $response = $this->get('/users');
 
         $response->assertStatus(200);
         $response->assertSee("RUNTEQ", true, "'RUNTEQ という文字を表示するようにしてください");
+    }
+
+    private function createUser(integer $num = 1)
+    {
+        $faker = Faker\Factory::create('ja_JP');
+
+        $count = 0;
+        while($count < $num) {
+            $user = new User();
+            $user->name = $faker->name();
+            $user->tel = $faker->phoneNumber();
+            $user->save();
+
+            $count += 1;
+        }
     }
 }
