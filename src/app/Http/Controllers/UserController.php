@@ -15,9 +15,10 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
+        $index_title = 'ユーザー一覧';
         return view(
             'users.index',
-            compact('users')
+            compact('users', 'index_title')
         );
     }
 
@@ -56,7 +57,8 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        return view('users.show', compact('user'));
+        $show_title = 'ユーザー詳細';
+        return view('users.show', compact('user', 'show_title'));
     }
 
     /**
