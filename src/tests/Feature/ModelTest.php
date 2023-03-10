@@ -18,6 +18,9 @@ class ModelTest extends TestCase
         $this->createUser(6);
         $response = $this->get('/users');
 
+        $users = User::where('age', '>=', 20)->where('age', '<=', 50)->orderBy('age', 'desc')->get();
+        $response->assertViewHas(['users' => $users], 'indexアクションの表示順を年齢の逆順（年齢が高い方がリストの最初に表示される）にしてください');
+
         $this->checkCommonDisplay($response);
         $response->assertSee(10, false, "ユーザーは20歳以上を表示してください");
         $response->assertSee(60, false, "ユーザーは50歳以下を表示してください");

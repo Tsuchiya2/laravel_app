@@ -16,7 +16,10 @@ class UserController extends Controller
     {
         $min_age = 20;
         $max_age = 50;
-        $users = User::where('age', '>=', $min_age)->where('age', '<=', $max_age)->get();
+        $users = User::where('age', '>=', $min_age)
+            ->where('age', '<=', $max_age)
+            ->orderBy('age', 'desc')
+            ->get();
         $index_title = 'ユーザー一覧';
 
         return view(
