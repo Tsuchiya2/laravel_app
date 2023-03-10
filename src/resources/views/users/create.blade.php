@@ -15,15 +15,15 @@
                     </div>
                     <div class="card-body">
                         @if ($errors->any())
-                            <div class="callout callout-warning">
-                                <h5>ユーザーの登録に失敗しました</h5>
-                                @if ($errors->has('name'))
-                                    <p>{{ $errors->first('name') }}</p>
-                                @endif
-                                @if ($errors->has('age'))
-                                    <p>{{ $errors->first('age') }}</p>
-                                @endif
-                            </div>
+                        <div class="callout callout-warning">
+                            <h5>ユーザーの登録に失敗しました</h5>
+                            @if ($errors->has('name'))
+                            <p>{{ $errors->first('name') }}</p>
+                            @endif
+                            @if ($errors->has('age'))
+                            <p>{{ $errors->first('age') }}</p>
+                            @endif
+                        </div>
                         @endif
 
                         <form action="{{route('users.store')}}" method="post">
