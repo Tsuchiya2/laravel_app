@@ -35,6 +35,10 @@
                                     <th>年齢</th>
                                     <td>{{$user->age}} 才</td>
                                 </tr>
+                                <tr>
+                                    <th>電話番号</th>
+                                    <td>{{$user->tel}}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
