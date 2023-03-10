@@ -1,5 +1,4 @@
 <?php
-
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -17,33 +16,30 @@ class UserControllerTest extends TestCase
     public function test_index()
     {
         $this->createUser();
-        $user = User->first();
+        $user = \App\Models\User::all()->first();
         $response = $this->get('/users');
 
         $this->checkCommonDisplay($response);
-        $response->assertSee($user->name(), true, "一覧ページにユーザー名を表示してください");
-        $response->assertSee($user->age(), true, "一覧ページに年齢を表示してください");
+        $response->assertSee($user->name, true, "一覧ページにユーザー名を表示してください");
+        $response->assertSee($user->age, true, "一覧ページに年齢を表示してください");
     }
 
     public function test_show()
     {
         $this->createUser();
-        $user = User->first();
+        $user = \App\Models\User::select('*')->orderBy('id', 'desc')->first();
         $response = $this->get("/users/{$user->id}");
 
         $this->checkCommonDisplay($response);
 
-        $response->assertSee($user->name(), true, "詳細ページにユーザー名を表示してください");
-        $response->assertSee($user->age(), true, "詳細ページに年齢を表示してください");
+        $response->assertSee($user->name, true, "詳細ページにユーザー名を表示してください");
+        $response->assertSee($user->age, true, "詳細ページに年齢を表示してください");
     }
 
     public function test_create()
     {
         $response = $this->get("/users/create");
         $this->checkCommonDisplay($response);
-
-        $response->assertSee($user->name(), true, "詳細ページにユーザー名を表示してください");
-        $response->assertSee($user->age(), true, "詳細ページに年齢を表示してください");
     }
 
     public function test_storeSuccess()
@@ -53,33 +49,36 @@ class UserControllerTest extends TestCase
             'age' => 20,
         ];
         $response = $this->post("/users", $attributes);
+        $user = \App\Models\User::select('*')->orderBy('id', 'desc')->first();
 
-        $response->assertStatus(302)->assetRedirect(route("users.show", $user));
-        $user = User->orderBy('id', 'desc')->first();
-        $this->assetSame($user->name(), 'らんてくん');
-        $this->assetSame($user->age(), 20);
+        $response->assertStatus(302);
+        $response->assertRedirect(route("users.show", $user));
+
+        $this->assertSame($user->name, 'らんてくん');
+        $this->assertSame($user->age, 20);
     }
 
     public function test_storeFail()
     {
         $attributes = [
-            'name' => 'らんてくん',
+            'name' => '',
             'age' => '30',
         ];
-        $response = $this->post("/users", $attributes);
 
-        $response->assertStatus(302)->assetRedirect(route("users.create"));
+        $this->get("/users/create");
+        $this->post("/users", $attributes)
+             ->assertStatus(302)
+             ->assertRedirect(route("users.create"));
     }
 
     private function createUser(int $num = 1)
     {
-        $faker = $this->faker;
-
         $count = 0;
+
         while($count < $num) {
             $user = new User();
-            $user->name = $faker->name();
-            $user->tel = $faker->phoneNumber();
+            $user->name = "らんてくん{$num}";
+            $user->age = $num;
             $user->save();
 
             $count += 1;
