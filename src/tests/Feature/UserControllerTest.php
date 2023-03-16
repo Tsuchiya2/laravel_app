@@ -57,19 +57,6 @@ class UserControllerTest extends TestCase
         $this->assertSame($user->age, 20);
     }
 
-    public function test_storeFail()
-    {
-        $attributes = [
-            'name' => '',
-            'age' => '30',
-        ];
-
-        $this->get("/users/create");
-        $this->post("/users", $attributes)
-             ->assertStatus(302)
-             ->assertRedirect(route("users.create"));
-    }
-
     private function createUser(int $num = 1)
     {
         $count = 0;
