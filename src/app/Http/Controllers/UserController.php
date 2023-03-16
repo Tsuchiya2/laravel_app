@@ -50,6 +50,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->age = $request->age;
         $user->tel = $request->tel;
+        $user->address = $request->address;
         $user->save();
 
         return redirect(route('users.show', $user))->with('success', 'ユーザーを新規登録しました');

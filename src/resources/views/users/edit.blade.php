@@ -26,6 +26,9 @@
                                 @if ($errors->has('tel'))
                                     <p>{{ $errors->first('tel') }}</p>
                                 @endif
+                                @if ($errors->has('address'))
+                                    <p>{{ $errors->first('address') }}</p>
+                                @endif
                             </div>
                         @endif
 
@@ -44,6 +47,10 @@
                             <div class="form-group">
                                 <label for="body">電話番号</label>
                                 <input type="number" name="tel" class="form-control" value="{{old('tel')}}" placeholder="09009876543">
+                            </div>
+                            <div class="form-group">
+                                <label for="body">住所</label>
+                                <input type="number" name="address" class="form-control" value="{{old('address')}}" placeholder="09009876543">
                             </div>
                             <input type="submit" value="更新" class="btn btn-primary">
                         </form>

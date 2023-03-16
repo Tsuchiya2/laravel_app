@@ -20,8 +20,7 @@ class UserControllerTest extends TestCase
         $response = $this->get('/users');
 
         $this->checkCommonDisplay($response);
-        $response->assertSee($user->name, true, "一覧ページにユーザー名を表示してください");
-        $response->assertSee($user->age, true, "一覧ページに年齢を表示してください");
+        $this->checkUserDisplay($response, $user, '一覧ページ');
     }
 
     public function test_show()
@@ -31,9 +30,7 @@ class UserControllerTest extends TestCase
         $response = $this->get("/users/{$user->id}");
 
         $this->checkCommonDisplay($response);
-
-        $response->assertSee($user->name, true, "詳細ページにユーザー名を表示してください");
-        $response->assertSee($user->age, true, "詳細ページに年齢を表示してください");
+        $this->checkUserDisplay($response, $user, '詳細ページ');
     }
 
     public function test_create()
@@ -47,6 +44,8 @@ class UserControllerTest extends TestCase
         $attributes = [
             'name' => 'らんてくん',
             'age' => 20,
+            'tel' => '08000123456',
+            'address' => '東京都港区芝公園４−２−８',
         ];
         $response = $this->post("/users", $attributes);
         $user = \App\Models\User::select('*')->orderBy('id', 'desc')->first();
@@ -79,6 +78,8 @@ class UserControllerTest extends TestCase
             $user = new User();
             $user->name = "らんてくん{$num}";
             $user->age = $num;
+            $user->address = "東京都{$num}区{$num}丁目{$num}番{$num}号";
+            $user->tel = "090-1234-{$num}";
             $user->save();
 
             $count += 1;
@@ -88,9 +89,17 @@ class UserControllerTest extends TestCase
     private function checkCommonDisplay($response)
     {
         $response->assertStatus(200);
-        $attributes = ['ユーザー名', '年齢'];
+        $attributes = ['ユーザー名', '年齢', '電話番号', '住所',];
         foreach ($attributes as $attribute) {
             $response->assertSee($attribute, true, "{$attribute}という文字を表示するようにしてください");
         }
+    }
+
+    private function checkUserDisplay($response, $user, $page_title)
+    {
+        $response->assertSee($user->name, true, "${page_title}にユーザー名を表示してください");
+        $response->assertSee($user->age, true, "${page_title}に年齢を表示してください");
+        $response->assertSee($user->tel, true, "${page_title}に電話番号を表示してください");
+        $response->assertSee($user->address, true, "${page_title}に住所を表示してください");
     }
 }

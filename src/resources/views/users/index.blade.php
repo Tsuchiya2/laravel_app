@@ -22,6 +22,7 @@
                                     <th>ユーザー名</th>
                                     <th>年齢</th>
                                     <th>電話番号</th>
+                                    <th>住所</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -32,6 +33,7 @@
                                         <td>{{$user->name}} さん</td>
                                         <td>{{$user->age}} 才</td>
                                         <td>{{$user->tel}}</td>
+                                        <td>{{$user->address}}</td>
                                         <td>
                                             <a href="{{route('users.show', $user)}}" class="btn btn-info">詳細</a>
                                             <a href="{{route('users.edit', $user)}}" class="btn btn-warning">編集</a>
