@@ -31,7 +31,7 @@
                                         <td>{{$user->id}}</td>
                                         <td>{{$user->name}} さん</td>
                                         <td>{{$user->age}} 才</td>
-                                        <td>{{$user->tel}} 才</td>
+                                        <td>{{$user->tel}}</td>
                                         <td>
                                             <a href="{{route('users.show', $user)}}" class="btn btn-info">詳細</a>
                                             <a href="{{route('users.edit', $user)}}" class="btn btn-warning">編集</a>

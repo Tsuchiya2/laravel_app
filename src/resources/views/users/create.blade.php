@@ -18,10 +18,13 @@
                         <div class="callout callout-warning">
                             <h5>ユーザーの登録に失敗しました</h5>
                             @if ($errors->has('name'))
-                            <p>{{ $errors->first('name') }}</p>
+                                <p>{{ $errors->first('name') }}</p>
                             @endif
                             @if ($errors->has('age'))
-                            <p>{{ $errors->first('age') }}</p>
+                                <p>{{ $errors->first('age') }}</p>
+                            @endif
+                            @if ($errors->has('tel'))
+                                <p>{{ $errors->first('tel') }}</p>
                             @endif
                         </div>
                         @endif
@@ -35,6 +38,10 @@
                             <div class="form-group">
                                 <label for="body">年齢</label>
                                 <input type="number" name="age" class="form-control" value="{{old('age')}}" placeholder="25">
+                            </div>
+                            <div class="form-group">
+                                <label for="body">電話番号</label>
+                                <input type="number" name="tel" class="form-control" value="{{old('tel')}}" placeholder="09009876543">
                             </div>
                             <input type="submit" value="登録" class="btn btn-primary">
                         </form>
