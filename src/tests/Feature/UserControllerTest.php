@@ -8,6 +8,8 @@ use App\Models\User;
 
 class UserControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * A basic feature test example.
      *
@@ -16,7 +18,7 @@ class UserControllerTest extends TestCase
     public function test_index()
     {
         $this->createUser();
-        $user = \App\Models\User::all()->first();
+        $user = $this->firstUser();
         $response = $this->get('/users');
 
         $this->checkCommonDisplay($response);
@@ -26,7 +28,7 @@ class UserControllerTest extends TestCase
     public function test_show()
     {
         $this->createUser();
-        $user = \App\Models\User::select('*')->orderBy('id', 'desc')->first();
+        $user = $this->firstUser();
         $response = $this->get("/users/{$user->id}");
 
         $this->checkCommonDisplay($response);
@@ -48,26 +50,45 @@ class UserControllerTest extends TestCase
             'address' => '東京都港区芝公園４−２−８',
         ];
         $response = $this->post("/users", $attributes);
-        $user = \App\Models\User::select('*')->orderBy('id', 'desc')->first();
+        $user = $this->firstUser();
 
         $response->assertStatus(302);
         $response->assertRedirect(route("users.show", $user));
 
-        $this->assertSame($user->name, 'らんてくん');
-        $this->assertSame($user->age, 20);
+        $this->assertSame($user->name, $attributes['name']);
+        $this->assertSame($user->age, $attributes['age']);
+        $this->assertSame($user->tel, $attributes['tel']);
+        $this->assertSame($user->address, $attributes['address']);
     }
 
-    public function test_storeFail()
+    public function test_edit()
     {
-        $attributes = [
-            'name' => '',
-            'age' => '30',
-        ];
+        $this->createUser();
+        $user = $this->firstUser();
+        $response = $this->get(route("users.edit", $user));
+        $this->checkCommonDisplay($response);
+    }
 
-        $this->get("/users/create");
-        $this->post("/users", $attributes)
-             ->assertStatus(302)
-             ->assertRedirect(route("users.create"));
+    public function test_updateSuccess()
+    {
+        $this->createUser();
+        $user = $this->firstUser();
+        $attributes = [
+            'name' => 'らんてくん',
+            'age' => 20,
+            'tel' => '08000123456',
+            'address' => '東京都港区芝公園４−２−８',
+        ];
+        $response = $this->patch(route("users.show", $user), $attributes);
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route("users.show", $user));
+
+        $user = $this->firstUser();
+        $this->assertSame($user->name, $attributes['name']);
+        $this->assertSame($user->age, $attributes['age']);
+        $this->assertSame($user->tel, $attributes['tel']);
+        $this->assertSame($user->address, $attributes['address']);
     }
 
     private function createUser(int $num = 1)
@@ -77,7 +98,7 @@ class UserControllerTest extends TestCase
         while($count < $num) {
             $user = new User();
             $user->name = "らんてくん{$num}";
-            $user->age = $num;
+            $user->age = 30;
             $user->address = "東京都{$num}区{$num}丁目{$num}番{$num}号";
             $user->tel = "090-1234-{$num}";
             $user->save();
@@ -101,5 +122,10 @@ class UserControllerTest extends TestCase
         $response->assertSee($user->age, true, "${page_title}に年齢を表示してください");
         $response->assertSee($user->tel, true, "${page_title}に電話番号を表示してください");
         $response->assertSee($user->address, true, "${page_title}に住所を表示してください");
+    }
+
+    private function firstUser()
+    {
+        return \App\Models\User::select('*')->orderBy('id', 'desc')->first();
     }
 }
