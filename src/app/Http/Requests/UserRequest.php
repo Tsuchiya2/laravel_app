@@ -23,18 +23,11 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required',
-            'age' => 'required|integer',
-        ];
+        return [];
     }
 
     public function messages()
     {
-        return [
-            'name.required' => '名前を入力してください',
-            'age.required' => '年齢を入力してください',
-            'age.integer' => '年齢は数字で入力してください',
-        ];
+        return [];
     }
 }
