@@ -29,6 +29,12 @@
                                 @if ($errors->has('address'))
                                     <p>{{ $errors->first('address') }}</p>
                                 @endif
+                                @if ($errors->has('email'))
+                                    <p>{{ $errors->first('email') }}</p>
+                                @endif
+                                @if ($errors->has('password'))
+                                    <p>{{ $errors->first('password') }}</p>
+                                @endif
                             </div>
                         @endif
 
@@ -51,6 +57,14 @@
                             <div class="form-group">
                                 <label for="body">住所</label>
                                 <input type="number" name="address" class="form-control" value="{{old('address')}}" placeholder="09009876543">
+                            </div>
+                            <div class="form-group">
+                                <label for="body">メールアドレス</label>
+                                <input type="email" name="email" class="form-control" value="{{old('email')}}" placeholder="runteq@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="body">パスワード</label>
+                                <input type="password" name="password" class="form-control" value="{{old('password')}}" placeholder="****">
                             </div>
                             <input type="submit" value="更新" class="btn btn-primary">
                         </form>
