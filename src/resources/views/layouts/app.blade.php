@@ -5,7 +5,7 @@
         <li class="nav-item">
             @if(Auth::check())
                 <!-- ログアウトフォーム -->
-                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                <form id="logout-form" action="{{ route('login.destroy') }}" method="POST">
                     {{ csrf_field() }}
                     <a class="nav-link" href="javascript:{}" onclick="document.getElementById('logout-form').submit();">
                         ログアウト

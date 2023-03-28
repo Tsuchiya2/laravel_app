@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Contracts\Auth\Authenticatable;
 
 class LoginController extends Controller
 {
@@ -23,7 +22,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('top.index');
+            return redirect()->intended(route('top.index'));
         }
 
         return back()->withErrors([

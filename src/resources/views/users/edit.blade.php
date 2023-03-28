@@ -60,7 +60,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="body">メールアドレス</label>
-                                <input type="email" name="email" class="form-control" value="{{old('email')}}" placeholder="runteq@example.com">
+                                <input type="email" name="email" class="form-control" value="{{old('email', $user->email)}}" placeholder="runteq@example.com">
                             </div>
                             <div class="form-group">
                                 <label for="body">パスワード</label>

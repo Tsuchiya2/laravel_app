@@ -25,5 +25,5 @@ Route::resource('users', UserController::class);
 Route::controller(LoginController::class)->group(function () {
     Route::get('login', 'create')->name('login.create');
     Route::post('login', 'store')->name('login.store');
-    // Route::delete('logout', 'Auth\LoginController@logout')->name('logout.destroy');
+    Route::delete('logout', 'destroy')->name('login.destroy');
 });
