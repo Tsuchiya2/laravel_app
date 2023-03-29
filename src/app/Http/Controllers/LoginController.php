@@ -29,4 +29,13 @@ class LoginController extends Controller
             'email' => 'メールアドレスまたはパスワードが正しくありません。',
         ])->onlyInput('email');
     }
+
+    public function destroy(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('top.index');
+    }
 }

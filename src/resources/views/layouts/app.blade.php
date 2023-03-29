@@ -6,8 +6,9 @@
             @if(Auth::check())
                 <!-- ログアウトフォーム -->
                 <form id="logout-form" action="{{ route('login.destroy') }}" method="POST">
-                    {{ csrf_field() }}
-                    <a class="nav-link" href="javascript:{}" onclick="document.getElementById('logout-form').submit();">
+                    @csrf
+                    @method('DELETE')
+                    <a class="nav-link" href="#" onclick="document.getElementById('logout-form').submit();">
                         ログアウト
                     </a>
                 </form>
