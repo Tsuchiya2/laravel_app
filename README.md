@@ -39,13 +39,13 @@ docker compose exec db bash
 
 - mysqlにログイン
 ```bash
+# パスワードが聞かれるので、`password`と打ち込む
 mysql -u root -p
 ```
-パスワードが聞かれるので、`password`と打ち込む
 
 - テストデータベース作成
 ```bash
-create database v3_beginner_laravel_test
+create database laravel_test
 ```
 
 
