@@ -108,7 +108,7 @@ class UserController extends Controller
         $data = $request->all();
         $user = User::find($id);
         $user->fill($data);
-        if(!is_null($data['password'])) {
+        if(isset($data['password']) && !is_null($data['password'])) {
             $user->password = Hash::make($data['password']);
         }
         $user->save();
