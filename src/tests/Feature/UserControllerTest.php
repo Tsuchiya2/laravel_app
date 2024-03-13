@@ -23,6 +23,8 @@ class UserControllerTest extends TestCase
 
         $this->checkCommonDisplay($response);
         $this->checkUserDisplay($response, $user, '一覧ページ');
+        $response->assertSee("らんてくん", false, "一覧ページにユーザー名を表示してください");
+        $response->assertSee($user->age, true, "一覧ページに年齢を表示してください");
     }
 
     public function test_show()
@@ -128,7 +130,7 @@ class UserControllerTest extends TestCase
 
         while($count < $num) {
             $user = new User();
-            $user->name = "らんてくん{$num}";
+            $user->name = "らんてくん";
             $user->age = 30;
             $user->address = "東京都{$num}区{$num}丁目{$num}番{$num}号";
             $user->tel = "090-1234-{$num}";
