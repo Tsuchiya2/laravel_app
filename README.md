@@ -31,9 +31,28 @@ docker-compose down
 docker-compose run app php artisan migrate
 ```
 
+### テスト環境のデータベース作成
+- dbコンテナにアクセス
+```bash
+docker compose exec db bash
+```
+
+- mysqlにログイン
+```bash
+# パスワードが聞かれるので、`password`と打ち込む
+mysql -u root -p
+```
+
+- テストデータベース作成
+```bash
+create database laravel_test
+```
+
+
+
 ## Dockerを使う上での注意点
 
-### Gemfileを編集したらDockerイメージに変更を反映させる
+### composer.jsonを編集したらDockerイメージに変更を反映させる
 
 #### composer installする
 
@@ -41,7 +60,7 @@ docker-compose run app php artisan migrate
 docker-compose run web composer install
 ```
 
-#### GemfileとGemfile.lockを反映する
+#### composer.jsonとcomposer.lockを反映する
 
 ```bash
 docker-compose build --force-rm
