@@ -22,8 +22,8 @@ class ModelTest extends TestCase
         $response->assertViewHas(['users' => $users], 'indexアクションの表示順を年齢の逆順（年齢が高い方がリストの最初に表示される）にしてください');
 
         $this->checkCommonDisplay($response);
-        $response->assertSee(10, false, "ユーザーは20歳以上を表示してください");
-        $response->assertSee(60, false, "ユーザーは50歳以下を表示してください");
+        $response->assertDontSee("10 才", false, "ユーザーは20才以上を表示してください");
+        $response->assertDontSee("60 才", false, "ユーザーは50才以下を表示してください");
     }
 
     public function test_storeSuccess()
