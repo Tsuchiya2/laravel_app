@@ -3,7 +3,7 @@
 ### Dockerイメージの構築
 
 ```bash
-docker-compose build
+docker compose build
 ```
 
 ### Dockerコンテナの構築&起動
@@ -11,7 +11,7 @@ docker-compose build
 #### 通常の起動
 
 ```bash
-docker-compose up
+docker compose up
 ```
 
 #### バックグラウンドで起動
@@ -22,13 +22,13 @@ docker-compose up -d
 ### Dockerコンテナを終了する
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ### データベースの作成
 
 ```bash
-docker-compose run app php artisan migrate
+docker compose run app php artisan migrate
 ```
 
 ### テスト環境のデータベース作成
@@ -57,13 +57,13 @@ create database laravel_test
 #### composer installする
 
 ```bash
-docker-compose run web composer install
+docker compose run web composer install
 ```
 
 #### composer.jsonとcomposer.lockを反映する
 
 ```bash
-docker-compose build --force-rm
+docker compose build --force-rm
 ```
 
 ### デバッグツールを使うときは
@@ -71,5 +71,5 @@ docker-compose build --force-rm
 #### nginxサーバーを立ち上げているコンテナのIDを確認する
 
 ```bash
-docker-compose exec app bash
+docker compose exec app bash
 ```
